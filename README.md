@@ -8,6 +8,7 @@ Convert md file to anki cards.
 ## 功能 Functions 
 
 将Markdown文件转换为anki basic 卡片(两面).
+
 支持:
 1. 数学公式($..$)
 2. 数学块($$..$$)
@@ -15,6 +16,7 @@ Convert md file to anki cards.
 4. 粗体(**..**)
 
 Convert Markdown file into anki cards with basic template(have only 2 sides).
+
 Support:
 1. Math Function($..$)
 2. Math Block($$..$$)
@@ -24,16 +26,21 @@ Support:
 ## 怎么用 How to use
 
 md2anki.py 自动将同目录下 xx.md 转换为 xx.csv.
+
 默认以两个换行('\n\n')为卡片分隔
+
 xx.csv可直接导入Anki
 
 The script will automatically convert all xx.md file in current path into xx.csv file.
+
 Default: Take empty lines('\n\n') as seperator between two cards.
+
 The csv file can be import into Anki directly
 
 ### 注意 Note
 
 导入时需勾选html支持
+
 Select html support while importing
 
 ![image](https://github.com/CharyS117/Markdown2Anki/blob/main/images/html.png)
@@ -41,6 +48,7 @@ Select html support while importing
 ## 例子 Example
 
 Markdown:
+```markdown
 7.1.2 The Permutation Representation
 
 $$
@@ -54,6 +62,7 @@ defined by this operation is injective.
 7.1.3 **Cayley's Theorem**.
 
 Every finite group is isomorphic to a subgroup of a permutation group. A group of order $n$ is isomorphic to a subgroup of $S_n$.
+```
 
 Anki:
 
