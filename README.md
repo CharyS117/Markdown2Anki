@@ -37,7 +37,7 @@ The script take empty lines('\n\n') as seperator between two cards defaultly.
 
 The csv file can be import into Anki directly
 
-### 注意 Note
+### 注意 Notice
 
 导入时需勾选html支持
 
