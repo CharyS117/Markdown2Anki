@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 import os
 
@@ -56,8 +55,7 @@ for p in range(len(filenames)):
         og_list = og_data.split(separator)
         if len(og_list) % 2 == 1:
             og_list.append('')
-        og_arr = np.array(og_list).reshape(-1,2)
-        df = pd.DataFrame(og_arr[:,1],index=og_arr[:,0])
+        df = pd.DataFrame(og_list[1::2],index=og_list[::2])
         df.to_csv(outnames[p],encoding='utf_8_sig',columns=None,header=None)
     with open(outnames[p],'r') as csv:
         math_k = 0
