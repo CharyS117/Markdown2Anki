@@ -33,7 +33,9 @@ md2anki.py 默认将同目录下 xx.md 转换为 xx.csv.
 
 xx.csv可直接导入Anki
 
-md2anki.py will automatically convert all xx.md files in the same directory into xx.csv files.
+md2anki.py will automatically convert all xx.md files in the same directory into xx.csv files defaultly.
+
+(filePath and outPath can be changed in the py file)
 
 The script take empty lines('\n\n') as seperator between two cards defaultly.
 
