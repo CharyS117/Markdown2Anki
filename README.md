@@ -25,7 +25,9 @@ Support:
 
 ## 怎么用 How to use
 
-md2anki.py 自动将同目录下 xx.md 转换为 xx.csv.
+md2anki.py 默认将同目录下 xx.md 转换为 xx.csv.
+
+(可通过修改py中的filePath和outPath调整)
 
 默认以两个换行('\n\n')为卡片分隔
 
