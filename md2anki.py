@@ -1,48 +1,12 @@
 import pandas as pd
 import os
+from func import JudgeMtime, JudgeMath, JudgeBold
 
 separator = '\n\n'
-outPath = './'
-filePath = './'
-
-def JudgeMath(dl, i):
-    if len(dl) > 1:
-        if i != 0 and i != len(dl) - 1:
-            if dl[i + 1] == '$':
-                return 1
-            if dl[i - 1] != '$':
-                return 0
-        if i == 0:
-            if dl[i + 1] != '$':
-                return 0
-            else:
-                return 1
-        if i == len(dl):
-            if dl[i - 1] != '$':
-                return 0
+outPath = '/Users/Chary/Desktop/md2anki/csv'
+filePath = '/Users/Chary/Desktop/md2anki/script/md_num'
 
 
-def JudgeBold(dl, i):
-    if len(dl) > 1:
-        if i != 0 and i != len(dl) - 1:
-            if dl[i + 1] == '*':
-                return 1
-            if dl[i - 1] != '*':
-                return 0
-        if i == 0:
-            if dl[i + 1] != '*':
-                return 0
-            else:
-                return 1
-        if i == len(dl):
-            if dl[i - 1] != '*':
-                return 0
-
-def JudgeMtime(filePath,outPath):
-    if os.path.exists(outPath):
-        if os.stat(outPath).st_mtime >= os.stat(filePath).st_mtime:
-            return 0
-    return 1
 
 filenames = os.listdir(filePath)
 outnames = []
