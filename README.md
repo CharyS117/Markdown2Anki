@@ -23,7 +23,7 @@ Support:
 2. Math Block($$..$$)
 3. Italic(*..*)
 4. Bold(**..**)
-5. Import media to Anki media fold(can be shown in Anki with `<img src='xxx.xxx'>)
+5. Import media to Anki media fold(can be shown in Anki with `<img src='xxx.xxx'>`)
 
 ## 怎么用 How to use
 
