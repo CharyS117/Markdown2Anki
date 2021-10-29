@@ -47,8 +47,8 @@ if __name__ == '__main__':
     fold = '/Users/Chary/Desktop/md2ankiV2' # working fold
     AnkiMediaFold = '/Users/chary/Library/Application Support/Anki2/chary/collection.media'
 
-    mdfileFold = fold + '/mdfile' # fold to store .md file to convert
-    csvFold = fold + '/csv' # output .csv fold
+    mdfileFold = fold # fold to store .md file to convert
+    csvFold = fold # output .csv fold
     picFold = fold + '/pic' # fold to store pics to move to Anki media fold
 
     # pic import
