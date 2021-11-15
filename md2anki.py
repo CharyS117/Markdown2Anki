@@ -85,6 +85,7 @@ if __name__ == '__main__':
                     outdata.append(line)
                     continue
                 if isTitle == 2:
+                    isTitle = 0
                     dotIndex = line.find('.')
                     if dotIndex == -1:
                         outdata.append(line)
@@ -93,7 +94,6 @@ if __name__ == '__main__':
                         num = 1
                     outdata.append(line[:dotIndex]+'.'+str(num)+line[dotIndex:])
                     num = num + 1
-                    isTitle = 0
                     continue
                 if line == '%\n':
                     isTitle = isTitle + 1
