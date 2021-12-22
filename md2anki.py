@@ -78,7 +78,7 @@ if __name__ == '__main__':
             ogdata = og.readlines()
             outdata = []
             isTitle = 2
-            chap = ogdata[0].split('.',1)[0]
+            chap = ogdata[0].split('. ',1)[0]
             num = 1
             for line in ogdata:
                 if line == '\n':
@@ -86,12 +86,13 @@ if __name__ == '__main__':
                     continue
                 if isTitle == 2:
                     isTitle = 0
-                    dotIndex = line.find('.')
+                    dotIndex = line.find('. ')
                     if dotIndex == -1:
                         outdata.append(line)
                         continue
                     if line[0:dotIndex] != chap:
                         num = 1
+                        chap = line[0:dotIndex]
                     outdata.append(line[:dotIndex]+'.'+str(num)+line[dotIndex:])
                     num = num + 1
                     continue
