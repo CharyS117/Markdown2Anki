@@ -1,4 +1,6 @@
-import os, shutil
+import os
+import platform
+import shutil
 import pandas as pd
 
 
@@ -53,7 +55,7 @@ if __name__ == '__main__':
     # pic import
     pics = os.listdir(picFold)
     for pic in pics:
-        if pic[0] != '.' and pic[0:5] != 'IMPT_': # mark transferred pics
+        if pic[0] != '.' and pic[0:5] != 'IMPT_':  # mark transferred pics
             picPath = os.path.join(picFold, pic)
             shutil.copyfile(picPath, os.path.join(AnkiMediaFold, pic))
             os.rename(picPath, os.path.join(picFold, 'IMPT_' + pic))
@@ -72,24 +74,23 @@ if __name__ == '__main__':
             ogdata = og.readlines()
             outdata = []
             isTitle = 2
-            chap = ogdata[0].split('.', 1)[0]
-            num = 1
+            num = {}
             for line in ogdata:
                 if line == '\n':
                     outdata.append(line)
                     continue
                 if isTitle == 2:
                     isTitle = 0
-                    dotIndex = line.find('.')
+                    dotIndex = line.find('. ')
                     if dotIndex == -1:
                         outdata.append(line)
                         continue
-                    if line[0:dotIndex] != chap:
-                        num = 1
-                    outdata.append(line[:dotIndex] + '.' + str(num) +
+                    if line[0:dotIndex] not in num:
+                        num[line[0:dotIndex]] = 1
+                    outdata.append(line[:dotIndex] + '.' +
+                                   str(num[line[0:dotIndex]]) +
                                    line[dotIndex:])
-                    num = num + 1
-
+                    num[line[0:dotIndex]] = num[line[0:dotIndex]] + 1
                     continue
                 if line == '%\n':
                     isTitle = isTitle + 1
@@ -164,4 +165,7 @@ if __name__ == '__main__':
             with open(csvPath, 'w') as csv:
                 for i in dl:
                     csv.write(i)
+            # open in preview (only on macos)
+            if platform.system()=='Darwin':
+                os.system('qlmanage -p \'' + csvPath + '\'')
         os.remove(tempPath)
