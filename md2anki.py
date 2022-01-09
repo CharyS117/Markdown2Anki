@@ -166,6 +166,6 @@ if __name__ == '__main__':
                 for i in dl:
                     csv.write(i)
             # open in preview (only on macos)
-            if platform.system()=='Darwin':
+            if platform.system() == 'Darwin':
                 os.system('qlmanage -p \'' + csvPath + '\'')
         os.remove(tempPath)
