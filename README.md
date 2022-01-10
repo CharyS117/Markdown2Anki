@@ -33,7 +33,7 @@ md2anki.py 默认将同目录下 xx.md 转换为 xx.csv.
 
 (可通过修改py中的filePath,csvPath,picPath调整)
 
-默认以`'\n\n%\n\n'`为卡片分隔
+默认以`'\n\n%\n\n'`为卡片和标题分隔
 
 xx.csv可直接导入Anki
 
@@ -43,7 +43,7 @@ defaultly import media files in **pics** into Anki media fold
 
 (filePath, csvPatha and picPath can be changed in the py file)
 
-The script takes `'\n\n%\n\n'` as seperator between two cards defaultly.
+The script takes `'\n\n%\n\n'` as seperator between cards and titles defaultly.
 
 The csv file can be import into Anki directly
 
@@ -53,7 +53,7 @@ The csv file can be import into Anki directly
 
 Select html support while importing
 
-![image](https://github.com/CharyS117/Markdown2Anki/blob/main/images/html.png)
+<img src='images/html.png' width=50%>
 
 ## 例子 Example
 
@@ -82,5 +82,5 @@ Every finite group is isomorphic to a subgroup of a permutation group. A group o
 
 Anki:
 
-![image](https://github.com/CharyS117/Markdown2Anki/blob/main/images/eg1.png)
-![image](https://github.com/CharyS117/Markdown2Anki/blob/main/images/eg2.png)
+<img src='images/eg1.png' width=50%>
+<img src='images/eg2.png' width=50%>
