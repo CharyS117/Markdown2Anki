@@ -47,7 +47,7 @@ def JudgeBold(dl, i):
 
 if __name__ == '__main__':
     separator = '\n\n%\n\n'
-    fold = '/Users/Chary/Desktop/md2anki'  # working fold
+    fold = '/Users/chary/Dropbox/md2anki'  # working fold
     AnkiMediaFold = '/Users/chary/Library/Application Support/Anki2/chary/collection.media'
     mdfileFold = fold + '/mdfile'  # fold to store .md file to convert
     csvFold = fold + '/csv'  # output .csv fold
