@@ -1,67 +1,42 @@
 # Markdown2Anki
 
-将Markdown文件转换为anki卡片
+Convert markdown file to Anki cards.
 
-Convert md file to anki cards.
+## Functions
 
+Use AnkiConnect to import Markdown file into anki cards with **Basic** module(have only 2 sides).
 
-## 功能 Functions 
+### Supported Syntax
 
-将Markdown文件转换为anki basic 卡片(两面).
+Mistune is used to parse markdown file to html.
 
-支持:
-1. 数学公式($..$)
-2. 数学块($$..$$)
-3. 斜体(*..*)
-4. 粗体(**..**)
-5. 媒体文件导入Anki媒体文件夹(可在Anki中通过 `<img src='xxx.xxx'>` 调用显示)
+So syntax like `*..*`, `**..**`,\`..\`(code block), etc are supported.
 
-Convert Markdown file into anki cards with basic template(have only 2 sides).
+For more information: https://github.com/lepture/mistune
 
-Support:
-1. Math Function($..$)
-2. Math Block($$..$$)
-3. Italic(*..*)
-4. Bold(**..**)
-5. Import media to Anki media fold(can be shown in Anki with `<img src='xxx.xxx'>`)
+Besides mistune:
+1. Support math blocks: $..$ and $$...$$
+2. Import media to Anki media folder
+> Note that a known bug is that if you use two syntax to show img in one md file mistune probably will not parse the syntax correctly.
+> 
+> For example: `<img src="...">\n![...](...)` will be parse in wrong syntax.
 
-## 怎么用 How to use
+## How to use
 
-md2anki.py 默认将同目录下 xx.md 转换为 xx.csv.
+1. Install AnkiConnect plugin in Anki (tutorial: https://foosoft.net/projects/anki-connect/)
+2. run `pip install -r requirements.txt` to install dependencies
+3. run `python main.py` to start the program with Anki running
+> Note that you should change the default `working_dir` in main.py in order to import md files from your own folder.
+>
+> Also default separators work as the following example. You can change them in main.py.
 
-默认将该目录下pic文件夹中的媒体文件导入
-
-(可通过修改py中的filePath,csvPath,picPath调整)
-
-默认以`'\n\n%\n\n'`为卡片和标题分隔
-
-xx.csv可直接导入Anki
-
-md2anki.py will automatically convert all xx.md files in the same directory into xx.csv files defaultly.
-
-defaultly import media files in **pics** into Anki media fold
-
-(filePath, csvPatha and picPath can be changed in the py file)
-
-The script takes `'\n\n%\n\n'` as seperator between cards and titles defaultly.
-
-The csv file can be import into Anki directly
-
-### 注意 Notice
-
-导入时需勾选html支持
-
-Select html support while importing
-
-<img src='images/html.png' width=50%>
-
-## 例子 Example
+### Example
 
 Markdown:
 ```markdown
 7.1.2 The Permutation Representation
 
-%
+%  <--- default separator for front and back (including blank lines before and after)
 
 $$
 \begin{aligned}
@@ -71,7 +46,7 @@ $$
 $$
 defined by this operation is injective.
 
-%
+----  <--- default separator for cards (including blank lines before and after)
 
 7.1.3 **Cayley's Theorem**.
 
