@@ -19,11 +19,21 @@ class md2anki:
             self.to_anki(folder)
 
     def parser(self, text):
+        # math support
+        maths = re.findall('\\$+.[\\s\\S]*?\\$+', text)
+        text = re.sub('\\$+.[\\s\\S]*?\\$+', '{}', text)
+        for i in range(len(maths)):
+            maths[i] = maths[i].replace('\n', '')
+            maths[i] = maths[i].replace('&', '&amp;')
+            maths[i] = maths[i].replace('<', '&lt;')
+            maths[i] = maths[i].replace('>', '&gt;')
+            if '$$' in maths[i]:
+                maths[i] = re.sub('\\$\\$([\\s\\S]*?)\\$\\$', '\\[\\1\\]', maths[i])
+            else:
+                maths[i] = re.sub('\\$([\\s\\S]*?)\\$', '\\(\\1\\)', maths[i])
         # md to html
         text = mistune.html(text)
-        # math support
-        text = re.sub('\\$\\$\\n([\\s\\S]*)\\n\\$\\$', '\\[\\1\\]', text)
-        text = re.sub('\\$([^$]*)\\$', '\\(\\1\\)', text)
+        text = text.format(*maths)
         # delete <p> <pre>
         text = re.sub('<p>([\\s\\S]*?)</p>', '\\1', text)
         text = re.sub('<pre>([\\s\\S]*?)</pre>', '\\1', text)
@@ -40,7 +50,8 @@ class md2anki:
         with open(path, 'r') as file:
             raw = file.read()
         notes_raw = raw.split(self.module_sep)
-        notes = [{'Front': self.parser(f), 'Back': self.parser(b)} for m in notes_raw for f, b in [m.split(self.note_sep)]]
+        notes = [{'Front': self.parser(f), 'Back': self.parser(b)} for m in notes_raw for f, b in
+                 [m.split(self.note_sep)]]
         return notes
 
     def load_md(self, md_file, deck):
@@ -61,7 +72,7 @@ class md2anki:
         else:
             with open(os.path.join(folder, 'imported.json'), 'r') as file:
                 imported = json.load(file)
-        media_files = os.listdir(folder)
+        media_files = [i for i in os.listdir(folder) if not i.startswith('.')]
         media_files.remove('imported.json')
         for file in imported:
             media_files.remove(file)
@@ -95,4 +106,3 @@ class md2anki:
             self.anki.sync_to_anki(notes, deck)
         for sub_folder in folders:
             self.to_anki(os.path.join(folder, sub_folder))
-

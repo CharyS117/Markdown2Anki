@@ -1,8 +1,9 @@
 from core.md2anki import md2anki
+import sys
 
 if __name__ == '__main__':
     # the test folder is aim for test
-    working_dir = 'test'
+    working_dir = sys.argv[1]
     # separator for front and back
     note_sep = '\n\n%\n\n'
     # separator for cards(notes)

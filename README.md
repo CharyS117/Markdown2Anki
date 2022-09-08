@@ -14,21 +14,23 @@ So syntax like `*..*`, `**..**`,\`..\`(code block), etc are supported.
 
 For more information: https://github.com/lepture/mistune
 
-Besides mistune:
+Extra functions:
 1. Support math blocks: $..$ and $$...$$
 2. Import media to Anki media folder
+3. Keep structures of markdown folder in decks and subdecks in Anki
+
+   (e.g. `./math/algebra.md` will be imported to `math::algebra`)
+4. Front of cards will be added the deck name to avoid duplicate
 > Note that a known bug is that if you use two syntax to show img in one md file mistune probably will not parse the syntax correctly.
 > 
-> For example: `<img src="...">\n![...](...)` will be parse in wrong syntax.
+> For example: `<img src="...">\n![...](...)` will be parsed in wrong syntax.
 
 ## How to use
 
 1. Install AnkiConnect plugin in Anki (tutorial: https://foosoft.net/projects/anki-connect/)
-2. run `pip install -r requirements.txt` to install dependencies
-3. run `python main.py` to start the program with Anki running
-> Note that you should change the default `working_dir` in main.py in order to import md files from your own folder.
->
-> Also default separators work as the following example. You can change them in main.py.
+2. run `pip install -r requir$ements.txt` to install dependencies
+3. run `python main.py path-to-your-md-folder` to start the program with Anki running
+> Default separators work as the following example. You can change them in main.py.
 
 ### Example
 
