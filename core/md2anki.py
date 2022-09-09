@@ -20,6 +20,8 @@ class md2anki:
 
     def parser(self, text):
         # math support
+        text = text.replace('{', '{{')
+        text = text.replace('}', '}}')
         maths = re.findall('\\$+.[\\s\\S]*?\\$+', text)
         text = re.sub('\\$+.[\\s\\S]*?\\$+', '{}', text)
         for i in range(len(maths)):
