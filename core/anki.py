@@ -68,8 +68,21 @@ class Anki(AnkiConnect):
         return self.notes_info(ids)
 
     def is_in_deck(self, deck_name, notes: [Note]):
+        """
+        :param deck_name:
+        :param notes:
+        :return: -1 if same in deck, 0 if not in deck, id if only has same front
+        """
         exists_notes = self.list_notes_by_deck(deck_name)
-        result = [any([note.compare_content(i) for i in exists_notes]) for note in notes]
+        result = [0] * len(notes)
+        for i in range(len(notes)):
+            for exists_note in exists_notes:
+                if notes[i].compare_content(exists_note):
+                    result[i] = -1
+                    break
+                if notes[i].fields['Front'] == exists_note.fields['Front']:
+                    result[i] = exists_note.note_id
+                    break
         return result
 
     def list_deck(self):
@@ -78,23 +91,35 @@ class Anki(AnkiConnect):
     def create_deck(self, deck_name):
         return self.invoke('createDeck', deck=deck_name)
 
+    def update_note_fields(self, old_note: Note, new_note: Note):
+        return self.invoke('updateNoteFields', note={'id': old_note.note_id, 'fields': new_note.fields})
+
     def sync_to_anki(self, notes, deck):
         # check if deck exists
         if deck not in self.list_deck():
             self.create_deck(deck)
-        # filter notes already in deck
         check = self.is_in_deck(deck, notes)
-        notes = [notes[i] for i in range(len(notes)) if not check[i]]
-        # check if able to sync
-        check = self.can_add_notes(deck, notes)
-        if not all(check):
+        # add new notes
+        new_notes = [notes[i] for i in range(len(notes)) if not check[i]]
+        final_check = self.can_add_notes(deck, new_notes)
+        if not all(final_check):
             print(f'Cannot add following to {deck}')
-            for i in range(len(check)):
-                if not check[i]:
-                    print(notes[i].fields)
+            for i in range(len(final_check)):
+                if not final_check[i]:
+                    print(new_notes[i].fields)
             raise ValueError('Check conflict')
-        # sync
-        self.add_notes(deck, notes)
+        self.add_notes(deck, new_notes)
+        # update empty notes
+        duplicate_note = [notes[i] for i in range(len(notes)) if check[i] > 0]
+        duplicate_id = [check[i] for i in range(len(notes)) if check[i] > 0]
+        duplicate_old_note = self.notes_info(duplicate_id)
+        pack = [{'new': duplicate_note[i], 'old': duplicate_old_note[i]} for i in range(len(duplicate_note))]
+        for i in pack:
+            if i['old'].fields['Back'] != '':
+                print(f'Failed to import\n{i["new"].fields}')
+                print(f'Note {i["old"].note_id} has content\n{i["old"].fields}')
+                raise ValueError('Check conflict')
+            self.update_note_fields(i['old'], i['new'])
 
     def store_media_file(self, file_path):
         return self.invoke('storeMediaFile', filename=os.path.split(file_path)[-1], path=file_path)

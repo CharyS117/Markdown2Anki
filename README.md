@@ -24,6 +24,8 @@ Extra functions:
 > Note that a known bug is that if you use two syntax to show img in one md file mistune probably will not parse the syntax correctly.
 > 
 > For example: `<img src="...">\n![...](...)` will be parsed in wrong syntax.
+>
+> To update a card you need to **clear the back of the card** or **delete the card** in Anki first.
 
 ## How to use
 
