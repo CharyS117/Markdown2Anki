@@ -52,9 +52,12 @@ class md2anki:
         with open(path, 'r') as file:
             raw = file.read()
         notes_raw = raw.split(self.module_sep)
-        notes = [{'Front': self.parser(f), 'Back': self.parser(b)} for m in notes_raw for f, b in
-                 [m.split(self.note_sep)]]
-        return notes
+        try:
+            notes = [{'Front': self.parser(f), 'Back': self.parser(b)} for m in notes_raw for f, b in
+                    [m.split(self.note_sep)]]
+            return notes
+        except ValueError as e:
+            raise ValueError(f'Error in {path}') from e
 
     def load_md(self, md_file, deck):
         fields = self.convert_to_fields(md_file)
