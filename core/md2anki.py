@@ -19,6 +19,8 @@ class md2anki:
             self.to_anki(folder)
 
     def parser(self, text):
+        # convert [text](img) to <img src="img">
+        text = re.sub(f'!\\[[\\s\\S]*?\\]\\(<{self.media_folder}/([\\s\\S]+?)>\\)', '<img src="\\1">', text)
         # math support
         text = text.replace('{', '{{')
         text = text.replace('}', '}}')
@@ -57,7 +59,7 @@ class md2anki:
                     [m.split(self.note_sep)]]
             return notes
         except ValueError as e:
-            raise ValueError(f'Error in {path}') from e
+            raise ValueError(f'Err  or in {path}\nError message:{e}') from e
 
     def load_md(self, md_file, deck):
         fields = self.convert_to_fields(md_file)

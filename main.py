@@ -11,3 +11,4 @@ if __name__ == '__main__':
     # the folder name for media files where you store your images
     media_folder_name = 'pic'
     md2anki(working_dir, note_sep, module_sep, media_folder_name)
+    print('done')
